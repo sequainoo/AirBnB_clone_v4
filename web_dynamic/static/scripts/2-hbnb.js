@@ -1,6 +1,7 @@
 $(document).ready(function() {
   const ids = [];
   const names = [];
+
   $('div.amenities .popover ul li input').change(function() {
     if ($(this).is(':checked')) {
       ids.push(this.dataset.id);
@@ -23,4 +24,12 @@ $(document).ready(function() {
       $('div.amenities h4').text(text);
     }
   });
+
+  $.get('http://localhost:5001/api/v1/status/', (data, textStatus) => {
+    if (data.status == "OK") {
+      $('header div#api_status').addClass('available');
+    } else {
+      $('header div#api_status').removeClass('available');
+    }
+  });  
 });
