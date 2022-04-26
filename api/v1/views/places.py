@@ -131,6 +131,7 @@ def places_search():
         if data is None:
             return jsonify({'error': 'Not a JSON'}), 400
 
+        # print(data)
         if data and len(data):
             states = data.get('states', None)
             cities = data.get('cities', None)
@@ -176,6 +177,7 @@ def places_search():
         for p in list_places:
             d = p.to_dict()
             d.pop('amenities', None)
+            print(d)
             places.append(d)
     
         return jsonify(places)
