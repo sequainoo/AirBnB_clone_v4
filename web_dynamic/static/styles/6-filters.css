@@ -102,6 +102,10 @@ button:hover {
     visibility: visible;
 }
 
-.amenities .popover ul li input[type="checkbox"] {
+li input[type="checkbox"] {
     margin-right: 10px;
+}
+
+.popover h2 {
+    display: inline-block;
 }
