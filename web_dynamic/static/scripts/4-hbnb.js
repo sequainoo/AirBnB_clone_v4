@@ -81,33 +81,30 @@ $(document).ready(function() {
       contentType: 'application/json',
       data
     }).done(function(data, status) {
-      if (data && data.length) {
-        $('section.places').empty();
+      $('section.places').empty();
+      for (const place of data) {
+        const guest = place.max_guest !== 1 ? 'Guests': 'Guest';
+        const bedroom = place.number_rooms !== 1? 'Bedrooms': 'Bedroom'
+        const bathroom = place.number_rooms !== 1? 'Bathrooms': 'Bathroom'
+        const article = `
+          <article>
+            <div class="title_box">
+              <h2>${ place.name }</h2>
+              <div class="price_by_night">$${ place.price_by_night }</div>
+            </div>
+            <div class="information">
+              <div class="max_guest">
+                ${place.max_guest} ${guest}
+              </div>
+              <div class="number_rooms">${ place.number_rooms } ${bedroom}</div>
+              <div class="number_bathrooms">${ place.number_bathrooms } ${bathroom}</div>
+            </div>
+            <div class="description">
+              ${ place.description || 'No description'}
+            </div>
+          </article>`;
 
-        for (const place of data) {
-          const guest = place.max_guest !== 1 ? 'Guests': 'Guest';
-          const bedroom = place.number_rooms !== 1? 'Bedrooms': 'Bedroom'
-          const bathroom = place.number_rooms !== 1? 'Bathrooms': 'Bathroom'
-          const article = `
-            <article>
-              <div class="title_box">
-                <h2>${ place.name }</h2>
-                <div class="price_by_night">$${ place.price_by_night }</div>
-              </div>
-              <div class="information">
-                <div class="max_guest">
-                  ${place.max_guest} ${guest}
-                </div>
-                <div class="number_rooms">${ place.number_rooms } ${bedroom}</div>
-                <div class="number_bathrooms">${ place.number_bathrooms } ${bathroom}</div>
-              </div>
-              <div class="description">
-                ${ place.description || 'No description'}
-              </div>
-            </article>`;
-  
-          $('section.places').append(article)
-        }
+        $('section.places').append(article)
       }
     });
   });
